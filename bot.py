@@ -1,4 +1,24 @@
 import os
+import subprocess
+import sys
+
+# Spróbuj zainstalować discord.py 2.3.0
+try:
+    import discord
+    if discord.__version__ != '2.3.0':
+        print("Instalowanie discord.py 2.3.0...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "discord.py==2.3.0", "--force-reinstall"])
+        print("Zainstalowano discord.py 2.3.0! Restartuję...")
+        os.execv(sys.executable, [sys.executable] + sys.argv)
+except ImportError:
+    print("Instalowanie discord.py 2.3.0...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "discord.py==2.3.0"])
+    print("Zainstalowano discord.py 2.3.0! Restartuję...")
+    os.execv(sys.executable, [sys.executable] + sys.argv)
+
+# =============================================================================
+# TWÓJ KOD BOTA
+# =============================================================================
 import discord
 from discord.ext import commands
 from discord.ui import View, Button
@@ -20,7 +40,7 @@ class TicketView(View):
         super().__init__(timeout=None)
         self.add_item(Button(label="Partnerstwo", style=discord.ButtonStyle.primary, custom_id="ticket_partner", emoji="💼"))
         self.add_item(Button(label="Kontakt z administracją", style=discord.ButtonStyle.success, custom_id="ticket_admin", emoji="📞"))
-        self.add_item(Button(label="Nagrody za zadania", style=discord.ButtonStyle.secondary, custom_id="ticket_rewards", emoji="📃"))
+        self.add_item(Button(label="Nagrody za levele", style=discord.ButtonStyle.secondary, custom_id="ticket_rewards", emoji="📃"))
         self.add_item(Button(label="Inne", style=discord.ButtonStyle.danger, custom_id="ticket_other", emoji="❗"))
 
 
@@ -101,7 +121,7 @@ async def on_interaction(interaction: discord.Interaction):
     elif custom_id == "ticket_admin":
         msg = "📞 Witaj w tickecie **kontakt z administracją**! Opisz swój problem."
     elif custom_id == "ticket_rewards":
-        msg = "📃 Witaj w tickecie **nagrody za zadania**! Podaj szczegóły."
+        msg = "📃 Witaj w tickecie **nagrody za levele**! Podaj szczegóły."
     else:
         msg = "❗ Witaj w tickecie! Opisz swój problem."
 
