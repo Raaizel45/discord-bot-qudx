@@ -46,7 +46,7 @@ from discord.ui import View, Button
 import asyncio
 
 # Pobierz token ze zmiennych środowiskowych
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.getenv("DISCORD_TOKEN")
 
 intents = discord.Intents.default()
 intents.messages = True
