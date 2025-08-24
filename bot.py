@@ -123,4 +123,4 @@ async def panel(ctx, channel: discord.TextChannel = None):
 
 
 # :rocket: URUCHOMIENIE BOTA
-bot.run("MTQwODgyOTM5NzAwNzMzNTUyNQ.GRrxZR.mWtor3MLwE3WrEnRzsFfYNaLONqffYuoqJ00CY")
+bot.run(TOKEN)
