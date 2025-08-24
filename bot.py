@@ -20,7 +20,7 @@ class TicketView(View):
         super().__init__(timeout=None)
         self.add_item(Button(label="Partnerstwo", style=discord.ButtonStyle.primary, custom_id="ticket_partner", emoji="💼"))
         self.add_item(Button(label="Kontakt z administracją", style=discord.ButtonStyle.success, custom_id="ticket_admin", emoji="📞"))
-        self.add_item(Button(label="Nagrody za levele", style=discord.ButtonStyle.secondary, custom_id="ticket_rewards", emoji="📃"))
+        self.add_item(Button(label="Nagrody za zadania", style=discord.ButtonStyle.secondary, custom_id="ticket_rewards", emoji="📃"))
         self.add_item(Button(label="Inne", style=discord.ButtonStyle.danger, custom_id="ticket_other", emoji="❗"))
 
 
@@ -101,7 +101,7 @@ async def on_interaction(interaction: discord.Interaction):
     elif custom_id == "ticket_admin":
         msg = "📞 Witaj w tickecie **kontakt z administracją**! Opisz swój problem."
     elif custom_id == "ticket_rewards":
-        msg = "📃 Witaj w tickecie **nagrody za levele**! Podaj szczegóły."
+        msg = "📃 Witaj w tickecie **nagrody za zadania**! Podaj szczegóły."
     else:
         msg = "❗ Witaj w tickecie! Opisz swój problem."
 
