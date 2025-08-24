@@ -1,7 +1,11 @@
+import os
 import discord
 from discord.ext import commands
 from discord.ui import View, Button
 import asyncio
+
+# Pobierz token ze zmiennych środowiskowych
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -9,7 +13,6 @@ intents.guilds = True
 intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
-
 
 # :pushpin: Główny panel ticketów
 class TicketView(View):
@@ -123,4 +126,5 @@ async def panel(ctx, channel: discord.TextChannel = None):
 
 
 # :rocket: URUCHOMIENIE BOTA
-bot.run(TOKEN)
+if __name__ == "__main__":
+    bot.run(TOKEN)
