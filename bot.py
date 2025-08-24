@@ -2,19 +2,40 @@ import os
 import subprocess
 import sys
 
-# Spróbuj zainstalować discord.py 2.3.0
+# Naprawiona instalacja discord.py
 try:
+    # Sprawdź czy discord.py jest zainstalowany
     import discord
-    if discord.__version__ != '2.3.0':
+    from discord.ext import commands
+    
+    # Spróbuj sprawdzić wersję na różne sposoby
+    try:
+        version = discord.__version__
+        print(f"Znaleziono discord.py w wersji: {version}")
+        if version != '2.3.0':
+            print("Instalowanie discord.py 2.3.0...")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "discord.py==2.3.0", "--force-reinstall"])
+            print("Restartuję...")
+            os.execv(sys.executable, [sys.executable] + sys.argv)
+    except AttributeError:
+        # Jeśli __version__ nie istnieje, zainstaluj ponownie
         print("Instalowanie discord.py 2.3.0...")
         subprocess.check_call([sys.executable, "-m", "pip", "install", "discord.py==2.3.0", "--force-reinstall"])
-        print("Zainstalowano discord.py 2.3.0! Restartuję...")
+        print("Restartuję...")
         os.execv(sys.executable, [sys.executable] + sys.argv)
+        
 except ImportError:
+    # Jeśli discord nie jest zainstalowany
     print("Instalowanie discord.py 2.3.0...")
     subprocess.check_call([sys.executable, "-m", "pip", "install", "discord.py==2.3.0"])
-    print("Zainstalowano discord.py 2.3.0! Restartuję...")
+    print("Restartuję...")
     os.execv(sys.executable, [sys.executable] + sys.argv)
+
+# Import po instalacji
+import discord
+from discord.ext import commands
+from discord.ui import View, Button
+import asyncio
 
 # =============================================================================
 # TWÓJ KOD BOTA
