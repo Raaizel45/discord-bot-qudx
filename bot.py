@@ -73,7 +73,7 @@ async def on_interaction(interaction: discord.Interaction):
     if category is None:
         category = await guild.create_category(category_name)
 
-    # Sprawdzamy czy użytkownik już ma ticket w tej kategorii
+    # Sprawdzamy czy użytknik już ma ticket w tej kategorii
     channel_name = f"ticket-{user.name}".replace(" ", "-").lower()
     existing = discord.utils.get(category.text_channels, name=channel_name)
     if existing:
@@ -97,13 +97,13 @@ async def on_interaction(interaction: discord.Interaction):
 
     # Wiadomość powitalna w zależności od rodzaju ticketa
     if custom_id == "ticket_partner":
-        msg = "💼 Witaj w tickecie **partnerstwa**! Opisz swoją propozycję i poczekaj cierpliwie na odpowiedź"
+        msg = "💼 Witaj w tickecie **partnerstwa**! Opisz swoją propozycję."
     elif custom_id == "ticket_admin":
-        msg = "📞 Witaj w tickecie **kontakt z administracją**! Opisz swój problem i poczekaj cierpliwie na odpowiedź."
+        msg = "📞 Witaj w tickecie **kontakt z administracją**! Opisz swój problem."
     elif custom_id == "ticket_rewards":
-        msg = "📃 Witaj w tickecie **nagrody za zadania**! Podaj szczegóły i poczekaj cierpliwie na odpowiedź."
+        msg = "📃 Witaj w tickecie **nagrody za zadania**! Podaj szczegóły."
     else:
-        msg = "❗ Witaj w tickecie! Opisz swój problem i poczekaj cierpliwie na odpowiedź."
+        msg = "❗ Witaj w tickecie! Opisz swój problem."
 
     await channel.send(f"{user.mention} {msg}", view=CloseView())
     await interaction.response.send_message(f"✅ Ticket został utworzony: {channel.mention}", ephemeral=True)
@@ -124,29 +124,6 @@ async def panel(ctx, channel: discord.TextChannel = None):
     )
     await ctx.send(f"✅ Panel wysłany na {channel.mention}", delete_after=5)
 
-
-# =============================================================================
-# DODANE DLA RENDER - FLASK DLA PORTU
-# =============================================================================
-from flask import Flask
-from threading import Thread
-import random
-
-# Tworzymy prostą stronę WWW tylko dla portu
-app = Flask('')
-
-@app.route('/')
-def home():
-    return "✅ Bot Discord jest online i działa!"
-
-def run_flask():
-    port = random.randint(10000, 65535)  # Losowy port
-    app.run(host='0.0.0.0', port=port)
-
-# Uruchamiamy Flask w tle
-flask_thread = Thread(target=run_flask)
-flask_thread.daemon = True
-flask_thread.start()
 
 # :rocket: URUCHOMIENIE BOTA
 if __name__ == "__main__":
