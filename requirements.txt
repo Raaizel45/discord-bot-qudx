@@ -1,4 +1,1 @@
-discord.py
-python-dotenv
-requests
-flask
+discord.py==2.3.0
